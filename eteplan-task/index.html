@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <header>
+      <h1>Reading Data from XML Files</h1>
+    </header>
+    <main>
+      <ul id="units"></ul>
+      <pre id="output"></pre>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let url = "sma_gentext.xml";
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            let parser = new DOMParser();
+            let xml = parser.parseFromString(data, "application/xml");
+            document.getElementById("output").textContent = data;
+            showData(xml);
+          });
+      });
+
+      function showData(x) {
+        let unit = x.getElementsByTagName("trans-unit");
+        for (let i = 0; i < unit.length; i++) {
+         if(unit[i].id === "42007" ) {
+            document.write("Data of Id: 42007", unit[i].textContent);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
